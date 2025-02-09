@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { msg } = defineProps<{
-  msg: string
-}>()
+  msg: string;
+}>();
 </script>
 
 <template>

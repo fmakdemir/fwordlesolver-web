@@ -1,35 +1,24 @@
-
 <script setup lang="ts">
-const { word } = defineProps(['word']);
-function    getColorClass(index: number) {
-      const color = this.colors[index];
-      if (color === 'green') return 'green-box';
-      if (color === 'yellow') return 'yellow-box';
-      if (color === 'gray') return 'gray-box';
-      return '';
-    }
+import { computed, defineProps, ref } from "vue";
+
+const { letter } = defineProps(["letter"]);
+const colorIndex = ref(0);
+const colors = ["gray", "yellow", "blue"];
+const colorClass = computed(() => letter ?? `${colors[colorIndex.value]}-box`);
 </script>
 
 <template>
-  <div class="word-row">
-    <div
-      v-for="(letter, index) in word"
-      :key="index"
-      :class="['letter-box', getColorClass(index)]"
-    >
-      {{ letter }}
-    </div>
+  <div :class="['letter-box', colorClass]" @click="colorIndex = (colorIndex + 1) % 3">
+    {{ letter || "_" }}
   </div>
 </template>
 
 <style scoped>
-.word-row {
-  display: flex;
-}
-
 .letter-box {
   width: 40px;
   height: 40px;
+  cursor: pointer;
+  user-select: none;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -44,8 +33,13 @@ function    getColorClass(index: number) {
   color: white;
 }
 
+.blue-box {
+  background-color: rgb(33, 167, 230);
+  color: white;
+}
+
 .yellow-box {
-  background-color: yellow;
+  background-color: rgb(252, 226, 80);
   color: black;
 }
 

@@ -1,42 +1,14 @@
+<script setup lang="ts">
+import FWordLetter from "../components/FWordLetter.vue";
+
+const word = "hello";
+</script>
+
 <template>
   <div class="word-row">
-    <div
-      v-for="(letter, index) in word"
-      :key="index"
-      :class="['letter-box', getColorClass(index)]"
-    >
-      {{ letter }}
-    </div>
+    <FWordLetter v-for="(letter, index) in word" :key="index" :letter="letter" />
   </div>
 </template>
-
-<script>
-export default {
-  name: 'FWordRow',
-  props: {
-    word: {
-      type: String,
-      required: true
-    },
-    colors: {
-      type: Array,
-      required: true,
-      validator: function (value) {
-        return value.length === 5;
-      }
-    }
-  },
-  methods: {
-    getColorClass(index) {
-      const color = this.colors[index];
-      if (color === 'green') return 'green-box';
-      if (color === 'yellow') return 'yellow-box';
-      if (color === 'gray') return 'gray-box';
-      return '';
-    }
-  }
-};
-</script>
 
 <style scoped>
 .word-row {
@@ -44,6 +16,8 @@ export default {
 }
 
 .letter-box {
+  text-transform: uppercase;
+  font-family: monospace;
   width: 40px;
   height: 40px;
   display: flex;
@@ -53,20 +27,5 @@ export default {
   font-size: 24px;
   font-weight: bold;
   border: 1px solid #000;
-}
-
-.green-box {
-  background-color: green;
-  color: white;
-}
-
-.yellow-box {
-  background-color: yellow;
-  color: black;
-}
-
-.gray-box {
-  background-color: gray;
-  color: white;
 }
 </style>
