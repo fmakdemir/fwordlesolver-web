@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+import FWordRow from "../components/FWordRow.vue"
+
+const colors = ["green", "yellow", "gray", "green", "yellow"];
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <FWordRow word="Hello" colors={colors} />
   </main>
 </template>
