@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/fmakdemir/fwordlesolver-web/compare/v0.1.1...v0.1.2) (2025-02-10)
+
+
+### Bug Fixes
+
+* added auto margin to app div ([95e8cc2](https://github.com/fmakdemir/fwordlesolver-web/commit/95e8cc2181b236fccc72cc8ff9be4f34ad732afe))
+
 ## [0.1.1](https://github.com/fmakdemir/fwordlesolver-web/compare/v0.1.0...v0.1.1) (2025-02-10)
 
 
