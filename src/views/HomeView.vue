@@ -3,7 +3,7 @@ import { useEditLogic } from "@/components/EditLogic";
 import FKeyboard from "@/components/FKeyboard.vue";
 import FSelectSize from "@/components/FSelectSize.vue";
 import FWordRow from "@/components/FWordRow.vue";
-import { ref, watch } from "vue";
+import { ref, watch, watchEffect } from "vue";
 import { STATES } from "@/common/constants";
 import { getEmptyArray } from "@/common/arrays";
 import { fwordlesolverApiApiSolveWordle, type WordleSolveResponse } from "@/api";
@@ -11,35 +11,36 @@ import FSuggestions from "@/components/FSuggestions.vue";
 
 const size = ref(5);
 const resp = ref<WordleSolveResponse>({
-  alternatives: ["asddd", "basdd", "qwehk", "yqowe", "oasda"],
-  suggestions: ["asddd", "basdd", "qwehk", "yqowe", "oasda"],
+  alternatives: [],
+  suggestions: [],
   remaining: 0,
-  used_letters: ["a", "b", "d"],
+  used_letters: [],
 });
 
 const { words, states, currWord, currState, handleKey } = useEditLogic(size);
 
-watch(
-  () => words.value.length,
-  async () => {
-    const places = states.value.map((s, si) =>
-      getEmptyArray(size.value)
-        .map((_, vi) => {
-          const v = s[vi] ?? 0;
-          console.log(s, si, v, vi);
-          return STATES[v].letter;
-        })
-        .join(""),
-    );
-    const results = await fwordlesolverApiApiSolveWordle({
-      words: words.value,
-      places,
-      size: size.value,
-    });
-    console.log("New value added", words.value, places, results);
-    resp.value = results.data;
-  },
-);
+const fetchSuggestions = async () => {
+  const places = states.value.map((s, si) =>
+    getEmptyArray(size.value)
+      .map((_, vi) => {
+        const v = s[vi] ?? 0;
+        console.log(s, si, v, vi);
+        return STATES[v].letter;
+      })
+      .join(""),
+  );
+  const results = await fwordlesolverApiApiSolveWordle({
+    words: words.value,
+    places,
+    size: size.value,
+  });
+  console.log("New value added", words.value, places, results);
+  resp.value = results.data;
+};
+
+watch(() => words.value.length, fetchSuggestions);
+
+watchEffect(() => fetchSuggestions());
 
 const onSuggest = (word: string) => {
   currWord.value = word;
@@ -67,6 +68,7 @@ const onSuggest = (word: string) => {
         class="mx-10 my-4"
         :suggestions="resp.suggestions"
         :alternatives="resp.alternatives"
+        :remaining="resp.remaining"
         @suggest="onSuggest"
       />
     </div>
