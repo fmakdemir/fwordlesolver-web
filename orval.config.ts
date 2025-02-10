@@ -1,9 +1,11 @@
-module.exports = {
+import { defineConfig } from "orval";
+
+export default defineConfig({
   api: {
     output: {
-      baseUrl: "/wordle-solver/api",
-      mode: "split",
+      // mode: "split",
       workspace: "src/api",
+      target: "api",
       client: "vue-query",
       mock: true,
       prettier: true,
@@ -12,4 +14,4 @@ module.exports = {
       target: "./src/api/openapi.json",
     },
   },
-};
+});
