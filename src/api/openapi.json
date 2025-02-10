@@ -1,1 +1,87 @@
-{"openapi": "3.1.0", "info": {"title": "Wordle API", "version": "1.0.0", "description": "This is an API for Wordle"}, "paths": {"/wordle-solver/api/wordle": {"post": {"operationId": "fwordlesolver_api_api_solve_wordle", "summary": "Solve Wordle", "parameters": [], "responses": {"200": {"description": "OK", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/WordleSolveResponse"}}}}}, "requestBody": {"content": {"application/json": {"schema": {"$ref": "#/components/schemas/WordleSolveRequest"}}}, "required": true}}}}, "components": {"schemas": {"WordleSolveResponse": {"properties": {"suggestions": {"items": {"type": "string"}, "title": "Suggestions", "type": "array"}, "alternatives": {"items": {"type": "string"}, "title": "Alternatives", "type": "array"}, "remaining": {"title": "Remaining", "type": "integer"}, "used_letters": {"items": {"type": "string"}, "title": "Used Letters", "type": "array", "uniqueItems": true}}, "required": ["suggestions", "alternatives", "remaining", "used_letters"], "title": "WordleSolveResponse", "type": "object"}, "WordleSolveRequest": {"properties": {"words": {"items": {"type": "string"}, "title": "Words", "type": "array"}, "places": {"items": {"type": "string"}, "title": "Places", "type": "array"}, "size": {"title": "Size", "type": "integer"}}, "required": ["words", "places", "size"], "title": "WordleSolveRequest", "type": "object"}}}, "servers": []}
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Wordle API",
+    "version": "1.0.0",
+    "description": "This is an API for Wordle"
+  },
+  "paths": {
+    "/wordle-solver/api/wordle": {
+      "post": {
+        "operationId": "fwordlesolver_api_api_solve_wordle",
+        "summary": "Solve Wordle",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/WordleSolveResponse" }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/WordleSolveRequest" }
+            }
+          },
+          "required": true
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "WordleSolveResponse": {
+        "properties": {
+          "suggestions": {
+            "items": { "type": "string" },
+            "title": "Suggestions",
+            "type": "array"
+          },
+          "alternatives": {
+            "items": { "type": "string" },
+            "title": "Alternatives",
+            "type": "array"
+          },
+          "remaining": { "title": "Remaining", "type": "integer" },
+          "used_letters": {
+            "items": { "type": "string" },
+            "title": "Used Letters",
+            "type": "array",
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "suggestions",
+          "alternatives",
+          "remaining",
+          "used_letters"
+        ],
+        "title": "WordleSolveResponse",
+        "type": "object"
+      },
+      "WordleSolveRequest": {
+        "properties": {
+          "words": {
+            "items": { "type": "string" },
+            "title": "Words",
+            "type": "array"
+          },
+          "places": {
+            "items": { "type": "string" },
+            "title": "Places",
+            "type": "array"
+          },
+          "size": { "title": "Size", "type": "integer" }
+        },
+        "required": ["words", "places", "size"],
+        "title": "WordleSolveRequest",
+        "type": "object"
+      }
+    }
+  },
+  "servers": []
+}

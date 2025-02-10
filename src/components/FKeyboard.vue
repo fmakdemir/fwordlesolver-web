@@ -1,11 +1,13 @@
 <template>
-  <div class="keyboard">
-    <div class="keyboard-row" v-for="(row, i) in rows" :key="i">
+  <div
+    class="mb-16 flex w-full max-w-screen flex-col items-center overflow-x-auto rounded border border-gray-400 px-2 py-1"
+  >
+    <div class="flex w-full md:items-center md:justify-center" v-for="(row, i) in rows" :key="i">
       <button
         v-for="key in row"
         :key="key"
         @click="emit('key-press', key)"
-        :class="{ 'used-letter': usedLetterMap[i], key: true }"
+        :class="{ 'bg-gray-300': usedLetters.includes(key.toLowerCase()), 'btn-kb': true }"
       >
         {{ key }}
       </button>
@@ -14,21 +16,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
-
 const { usedLetters } = defineProps<{ usedLetters: string[] }>();
 
 const emit = defineEmits(["key-press"]);
-
-const usedLetterMap = computed(() =>
-  usedLetters.reduce(
-    (m: Record<string, boolean>, c: string) => {
-      m[c] = true;
-      return m;
-    },
-    {} as Record<string, boolean>,
-  ),
-);
 
 const rows = [
   ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
@@ -38,33 +28,7 @@ const rows = [
 </script>
 
 <style scoped>
-.keyboard {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.keyboard-row {
-  display: flex;
-  margin-bottom: 10px;
-}
-
 .used-letter {
   background: gray;
-}
-
-.key {
-  margin: 5px;
-  padding: 10px 15px;
-  font-size: 16px;
-  cursor: pointer;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #f0f0f0;
-  user-select: none;
-}
-
-.key:active {
-  background-color: #d0d0d0;
 }
 </style>

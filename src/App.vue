@@ -74,11 +74,3 @@ nav a:first-of-type {
   }
 }
 </style>
-
-<style>
-#app {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-</style>

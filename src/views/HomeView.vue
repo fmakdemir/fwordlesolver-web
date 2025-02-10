@@ -7,11 +7,12 @@ import { ref, watch } from "vue";
 import { STATES } from "@/common/constants";
 import { getEmptyArray } from "@/common/arrays";
 import { fwordlesolverApiApiSolveWordle, type WordleSolveResponse } from "@/api";
+import FSuggestions from "@/components/FSuggestions.vue";
 
 const size = ref(5);
 const resp = ref<WordleSolveResponse>({
-  alternatives: ["ASDDD", "BASDD", "QWEHK", "YQOWE", "OASDA"],
-  suggestions: ["ASDDD", "BASDD", "QWEHK", "YQOWE", "OASDA"],
+  alternatives: ["asddd", "basdd", "qwehk", "yqowe", "oasda"],
+  suggestions: ["asddd", "basdd", "qwehk", "yqowe", "oasda"],
   remaining: 0,
   used_letters: ["a", "b", "d"],
 });
@@ -39,21 +40,36 @@ watch(
     resp.value = results.data;
   },
 );
+
+const onSuggest = (word: string) => {
+  currWord.value = word;
+  currState.value = getEmptyArray(size.value);
+};
 </script>
 
 <template>
   <main>
     <FSelectSize v-model="size" />
-    <FWordRow
-      v-for="(word, i) in words"
-      :word="word"
-      :size="size"
-      :state="states[i]"
-      :key="i"
-      disabled
-      @update:state="states[i] = $event"
-    />
-    <FWordRow :word="currWord" key="curr" :size="size" v-model:state="currState" />
+    <div class="flex flex-wrap items-center justify-center">
+      <div class="mx-10 mb-4 flex flex-col pt-16">
+        <FWordRow
+          v-for="(word, i) in words"
+          :word="word"
+          :size="size"
+          :state="states[i]"
+          :key="i"
+          disabled
+          @update:state="states[i] = $event"
+        />
+        <FWordRow :word="currWord" key="curr" :size="size" v-model:state="currState" />
+      </div>
+      <FSuggestions
+        class="mx-10 my-4"
+        :suggestions="resp.suggestions"
+        :alternatives="resp.alternatives"
+        @suggest="onSuggest"
+      />
+    </div>
     <FKeyboard :used-letters="resp.used_letters" @key-press="handleKey" />
   </main>
 </template>
