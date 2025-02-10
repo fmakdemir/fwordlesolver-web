@@ -1,15 +1,33 @@
 <script setup lang="ts">
-import { computed, defineProps, ref } from "vue";
+import { STATES } from "@/common/constants";
+import { computed, watch } from "vue";
 
-const { letter } = defineProps(["letter"]);
-const colorIndex = ref(0);
-const colors = ["gray", "yellow", "blue"];
-const colorClass = computed(() => letter ?? `${colors[colorIndex.value]}-box`);
+const { letter, disabled } = defineProps({
+  letter: String,
+  disabled: Boolean,
+});
+const [state] = defineModel<number>("state", { default: 0 });
+
+const colorClass = computed(() => (letter != "_" ? `${STATES[state.value].color}-box` : ""));
+
+watch(
+  () => letter,
+  () => {
+    state.value = 0;
+  },
+);
+
+const onClick = () => {
+  if (disabled) {
+    return;
+  }
+  state.value = letter === "_" ? 0 : (state.value + 1) % 3;
+};
 </script>
 
 <template>
-  <div :class="['letter-box', colorClass]" @click="colorIndex = (colorIndex + 1) % 3">
-    {{ letter || "_" }}
+  <div :class="['letter-box', colorClass]" @click="onClick">
+    {{ letter }}
   </div>
 </template>
 
