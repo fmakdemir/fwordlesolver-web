@@ -3,7 +3,7 @@ import { useEditLogic } from "@/components/EditLogic";
 import FKeyboard from "@/components/FKeyboard.vue";
 import FSelectSize from "@/components/FSelectSize.vue";
 import FWordRow from "@/components/FWordRow.vue";
-import { ref, watch, watchEffect } from "vue";
+import { computed, ref, watch, watchEffect } from "vue";
 import { STATES } from "@/common/constants";
 import { getEmptyArray } from "@/common/arrays";
 import { fwordlesolverApiApiSolveWordle, type WordleSolveResponse } from "@/api";
@@ -13,11 +13,13 @@ const size = ref(5);
 const resp = ref<WordleSolveResponse>({
   alternatives: [],
   suggestions: [],
-  remaining: 0,
+  remaining: 100,
   used_letters: [],
 });
 
-const { words, states, currWord, currState, handleKey } = useEditLogic(size);
+const { words, states, currWord, currState, clearGame, handleKey } = useEditLogic(size);
+
+const gameOver = computed(() => resp.value.remaining <= 1);
 
 const fetchSuggestions = async () => {
   const places = states.value.map((s, si) =>
@@ -62,7 +64,14 @@ const onSuggest = (word: string) => {
           disabled
           @update:state="states[i] = $event"
         />
-        <FWordRow :word="currWord" key="curr" :size="size" v-model:state="currState" />
+        <FWordRow
+          v-if="!gameOver"
+          :word="currWord"
+          key="curr"
+          :size="size"
+          v-model:state="currState"
+        />
+        <button class="btn-sugg" @click="clearGame">Clear Game</button>
       </div>
       <FSuggestions
         class="mx-10 my-4"

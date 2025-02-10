@@ -24,14 +24,16 @@ export const useEditLogic = (size: Ref<number, number>) => {
     }
   };
 
+  const clearGame = () => {
+    currWord.value = "";
+    currState.value = getEmptyArray(size.value);
+    words.value = [];
+    states.value = [];
+  };
+
   watch(
     () => size,
-    () => {
-      currWord.value = "";
-      currState.value = getEmptyArray(size.value);
-      words.value = [];
-      states.value = [];
-    },
+    () => clearGame(),
   );
-  return { words, states, currWord, currState, handleKey };
+  return { words, states, currWord, currState, clearGame, handleKey };
 };
