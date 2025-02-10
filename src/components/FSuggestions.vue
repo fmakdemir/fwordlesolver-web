@@ -3,7 +3,7 @@
     <div>
       <h2 class="flex items-center">
         <button @click="toggle" class="flex cursor-pointer px-2 py-1">
-          Word Suggestions (remaining)
+          Word Suggestions ({{ remaining }})
           {{ hidden ? "Show" : "Hide" }}
           <div :class="hidden ? 'rotate-180' : 'rotate-0'" class="transition-transform">🔽</div>
         </button>
