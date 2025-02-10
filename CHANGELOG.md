@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/fmakdemir/fwordlesolver-web/compare/v0.1.2...v0.2.0) (2025-02-10)
+
+
+### Features
+
+* added remaining and initial suggestions ([6de6c8d](https://github.com/fmakdemir/fwordlesolver-web/commit/6de6c8da967f6c424d8069a19400e0b80b839e16))
+
 ## [0.1.2](https://github.com/fmakdemir/fwordlesolver-web/compare/v0.1.1...v0.1.2) (2025-02-10)
 
 
