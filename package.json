@@ -15,6 +15,7 @@
     "lint:eslint": "eslint . --fix",
     "lint": "run-s lint:*",
     "test": "echo no tests",
+    "get-openapi": "curl https://games.codeuni.net/wordle-solver/api/openapi.json -o src/api/openapi.json",
     "format": "prettier --write src/"
   },
   "dependencies": {
