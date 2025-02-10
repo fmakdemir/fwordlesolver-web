@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/fmakdemir/fwordlesolver-web/compare/v0.1.0...v0.1.1) (2025-02-10)
+
+
+### Bug Fixes
+
+* fix for keyboard ([0c17187](https://github.com/fmakdemir/fwordlesolver-web/commit/0c17187894735fda9105a4af488d09fbb0b19488))
+
 ## 0.1.0 (2025-02-10)
 
 
