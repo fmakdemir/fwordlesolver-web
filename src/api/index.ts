@@ -1,1 +1,1 @@
-export * from "./api/ninjaAPI";
+export * from "./api/wordleAPI";

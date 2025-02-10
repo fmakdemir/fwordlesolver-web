@@ -1,7 +1,12 @@
 <template>
   <div class="keyboard">
     <div class="keyboard-row" v-for="(row, i) in rows" :key="i">
-      <button v-for="key in row" :key="key" @click="emit('key-press', key)" class="key">
+      <button
+        v-for="key in row"
+        :key="key"
+        @click="emit('key-press', key)"
+        :class="{ 'used-letter': usedLetterMap[i], key: true }"
+      >
         {{ key }}
       </button>
     </div>
@@ -9,7 +14,22 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from "vue";
+
+const { usedLetters } = defineProps<{ usedLetters: string[] }>();
+
 const emit = defineEmits(["key-press"]);
+
+const usedLetterMap = computed(() =>
+  usedLetters.reduce(
+    (m: Record<string, boolean>, c: string) => {
+      m[c] = true;
+      return m;
+    },
+    {} as Record<string, boolean>,
+  ),
+);
+
 const rows = [
   ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
   ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
@@ -27,6 +47,10 @@ const rows = [
 .keyboard-row {
   display: flex;
   margin-bottom: 10px;
+}
+
+.used-letter {
+  background: gray;
 }
 
 .key {

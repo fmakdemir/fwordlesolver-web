@@ -4,11 +4,17 @@ import FKeyboard from "@/components/FKeyboard.vue";
 import FSelectSize from "@/components/FSelectSize.vue";
 import FWordRow from "@/components/FWordRow.vue";
 import { ref, watch } from "vue";
-import * as api from "@/api";
 import { STATES } from "@/common/constants";
 import { getEmptyArray } from "@/common/arrays";
+import { fwordlesolverApiApiSolveWordle, type WordleSolveResponse } from "@/api";
 
 const size = ref(5);
+const resp = ref<WordleSolveResponse>({
+  alternatives: ["ASDDD", "BASDD", "QWEHK", "YQOWE", "OASDA"],
+  suggestions: ["ASDDD", "BASDD", "QWEHK", "YQOWE", "OASDA"],
+  remaining: 0,
+  used_letters: ["a", "b", "d"],
+});
 
 const { words, states, currWord, currState, handleKey } = useEditLogic(size);
 
@@ -24,9 +30,13 @@ watch(
         })
         .join(""),
     );
-    const mockRes = api.getFwordlesolverApiApiSolveWorldMockHandler();
-    const results = 0; // await api.fwordlesolverApiApiSolveWorld({ words: words.value, places });
-    console.log("New value added", words.value, places, mockRes, results);
+    const results = await fwordlesolverApiApiSolveWordle({
+      words: words.value,
+      places,
+      size: size.value,
+    });
+    console.log("New value added", words.value, places, results);
+    resp.value = results.data;
   },
 );
 </script>
@@ -44,7 +54,7 @@ watch(
       @update:state="states[i] = $event"
     />
     <FWordRow :word="currWord" key="curr" :size="size" v-model:state="currState" />
-    <FKeyboard @key-press="handleKey" />
+    <FKeyboard :used-letters="resp.used_letters" @key-press="handleKey" />
   </main>
 </template>
 
