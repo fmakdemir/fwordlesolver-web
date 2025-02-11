@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.2](https://github.com/fmakdemir/fwordlesolver-web/compare/v0.2.1...v0.2.2) (2025-02-11)
+
+
+### Bug Fixes
+
+* small fix for endgame ([e13cb77](https://github.com/fmakdemir/fwordlesolver-web/commit/e13cb77d7f0fb026526f90a1c774ff7f9b160a02))
+
 ## [0.2.1](https://github.com/fmakdemir/fwordlesolver-web/compare/v0.2.0...v0.2.1) (2025-02-10)
 
 
