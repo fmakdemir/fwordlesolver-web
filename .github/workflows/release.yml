@@ -23,7 +23,7 @@ jobs:
         id: release
         with:
           release-type: python
-      - if: steps.release.outputs.release_created
+      - if: !steps.release.outputs.release_created
         uses: publish.yaml@main
         with:
           release: ${{ steps.release.outputs }}
