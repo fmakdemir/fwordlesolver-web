@@ -21,6 +21,10 @@ jobs:
         id: release
         with:
           release-type: python
+      - if: steps.release.outputs.release_created
+        uses: ./github/workflows/publish.yaml
+        with:
+          release: ${{ steps.release.outputs }}
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}

@@ -2,6 +2,7 @@ name: 🐋 Publish Docker Image
 
 on:
   workflow_dispatch:
+  workflow_call:
   release:
   create:
 
@@ -14,6 +15,11 @@ jobs:
     name: 🐋 Docker
     runs-on: ubuntu-latest
     steps:
+      - name: Dump GitHub context
+        env:
+          INPUTS_CONTEXT: ${{ toJson(inputs) }}
+        run: echo "$INPUTS_CONTEXT"
+
       - uses: actions/checkout@v4
 
       - name: Use Node.js 20.x
