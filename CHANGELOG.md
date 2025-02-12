@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.4](https://github.com/fmakdemir/fwordlesolver-web/compare/v0.2.3...v0.2.4) (2025-02-12)
+
+
+### Bug Fixes
+
+* testing triggering release events ([0f4005b](https://github.com/fmakdemir/fwordlesolver-web/commit/0f4005b4e77c18e87a55eae59896e13d9ab0021d))
+
 ## [0.2.3](https://github.com/fmakdemir/fwordlesolver-web/compare/v0.2.2...v0.2.3) (2025-02-11)
 
 
