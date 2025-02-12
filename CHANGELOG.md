@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.8](https://github.com/fmakdemir/fwordlesolver-web/compare/v0.2.7...v0.2.8) (2025-02-12)
+
+
+### Bug Fixes
+
+* ci path ([e3fe591](https://github.com/fmakdemir/fwordlesolver-web/commit/e3fe5914663bb0dfe3d149566ede500e27599b1d))
+
 ## [0.2.7](https://github.com/fmakdemir/fwordlesolver-web/compare/v0.2.6...v0.2.7) (2025-02-12)
 
 
