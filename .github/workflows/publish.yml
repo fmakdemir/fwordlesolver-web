@@ -2,14 +2,7 @@ name: 🐋 Publish Docker Image
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - "main"
-    tags:
-      - "v*"
-  pull_request:
-    branches:
-      - "main"
+  release:
 
 # env:
 #   REGISTRY: ghcr.io
@@ -20,6 +13,7 @@ jobs:
     name: 🐋 Docker
     runs-on: ubuntu-latest
     steps:
+      - run: echo ${{ toJson(github) }}
       - uses: actions/checkout@v4
 
       - name: Use Node.js 20.x
