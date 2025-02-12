@@ -3,6 +3,7 @@ name: 🐋 Publish Docker Image
 on:
   workflow_dispatch:
   release:
+  create:
 
 # env:
 #   REGISTRY: ghcr.io
@@ -13,7 +14,6 @@ jobs:
     name: 🐋 Docker
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ toJson(github) }}
       - uses: actions/checkout@v4
 
       - name: Use Node.js 20.x
@@ -63,3 +63,15 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: Dump job context
+        env:
+          JOB_CONTEXT: ${{ toJson(job) }}
+        run: echo "$JOB_CONTEXT"
+      - name: Dump steps context
+        env:
+          STEPS_CONTEXT: ${{ toJson(steps) }}
+        run: echo "$STEPS_CONTEXT"
