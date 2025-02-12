@@ -24,7 +24,7 @@ jobs:
         with:
           release-type: python
       - if: !steps.release.outputs.release_created
-        uses: publish.yaml@main
+        uses: ./.github/workflows/publish.yml
         with:
           release: ${{ steps.release.outputs }}
       - name: Dump GitHub context
