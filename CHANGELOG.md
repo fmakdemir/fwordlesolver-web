@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.2.9](https://github.com/fmakdemir/fwordlesolver-web/compare/v0.2.8...v0.2.9) (2025-02-12)
+
+
+### Bug Fixes
+
+* ci ([c231de1](https://github.com/fmakdemir/fwordlesolver-web/commit/c231de1bfdef1187fc47d525052c380c9f197e38))
+* ci cond ([346cc60](https://github.com/fmakdemir/fwordlesolver-web/commit/346cc60274626d9ea37b72649ceaa0ddd7244801))
+* ci path ([9223994](https://github.com/fmakdemir/fwordlesolver-web/commit/922399437d803b464466b94f722c0dd0bd9ea673))
+* test ([dea3da8](https://github.com/fmakdemir/fwordlesolver-web/commit/dea3da86167aa8448c9a8283660c81363558b8f6))
+
 ## [0.2.8](https://github.com/fmakdemir/fwordlesolver-web/compare/v0.2.7...v0.2.8) (2025-02-12)
 
 
