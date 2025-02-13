@@ -23,6 +23,14 @@ jobs:
         id: release
         with:
           release-type: python
+      - name: Dump job context
+        env:
+          JOB_CONTEXT: ${{ toJson(job) }}
+        run: echo "$JOB_CONTEXT"
+      - name: Dump steps context
+        env:
+          STEPS_CONTEXT: ${{ toJson(steps) }}
+        run: echo "$STEPS_CONTEXT"
   docker_release:
     needs: build_release
     if: needs.build_release.outputs.release.releases_created
