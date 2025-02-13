@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.18](https://github.com/fmakdemir/fwordlesolver-web/compare/v0.2.17...v0.2.18) (2025-02-13)
+
+
+### Bug Fixes
+
+* subpath setup ([48f874c](https://github.com/fmakdemir/fwordlesolver-web/commit/48f874c9058ebd36c9e09336697ed98b10ee59e5))
+
 ## [0.2.17](https://github.com/fmakdemir/fwordlesolver-web/compare/v0.2.16...v0.2.17) (2025-02-13)
 
 
