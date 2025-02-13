@@ -3,6 +3,10 @@ name: 🐋 Publish Docker Image
 on:
   workflow_dispatch:
   workflow_call:
+    inputs:
+      tag_name:
+        required: true
+        type: string
   release:
   create:
 
@@ -50,7 +54,7 @@ jobs:
           images: |
             ${{ secrets.DOCKERHUB_USERNAME }}/fwordlesolver-web
           tags: |
-            latest
+            ${{ inputs.tag_name || '' }}
             type=ref,event=branch
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}

@@ -13,9 +13,11 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref_name }}
 
 jobs:
-  build-release:
+  build_release:
     name: Build Package Release
     runs-on: ubuntu-latest
+    outputs:
+      release: ${{ steps.release.outputs }}
     steps:
       - uses: actions/checkout@v4
 
@@ -23,19 +25,10 @@ jobs:
         id: release
         with:
           release-type: python
-      - if: steps.release.outputs.release_created != true
-        uses: ./.github/workflows/publish.yml
-        with:
-          release: ${{ steps.release.outputs }}
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
-      - name: Dump job context
-        env:
-          JOB_CONTEXT: ${{ toJson(job) }}
-        run: echo "$JOB_CONTEXT"
-      - name: Dump steps context
-        env:
-          STEPS_CONTEXT: ${{ toJson(steps) }}
-        run: echo "$STEPS_CONTEXT"
+  docker_release:
+    needs: build_release
+    if: needs.build_release.outputs.release.releases_created
+    uses: ./.github/workflows/publish.yml
+    with:
+      tag_name: ${{ needs.build_release.outputs.release.tag_name }}
+    secrets: inherit
