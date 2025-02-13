@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.17](https://github.com/fmakdemir/fwordlesolver-web/compare/v0.2.16...v0.2.17) (2025-02-13)
+
+
+### Bug Fixes
+
+* removed unnecessary log and branch build ([f391f88](https://github.com/fmakdemir/fwordlesolver-web/commit/f391f88dd703479d88ae3c4fbd85b694ff22b60a))
+
 ## [0.2.16](https://github.com/fmakdemir/fwordlesolver-web/compare/v0.2.15...v0.2.16) (2025-02-13)
 
 
