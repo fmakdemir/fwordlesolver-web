@@ -33,8 +33,18 @@ jobs:
         run: echo "$STEPS_CONTEXT"
   docker_release:
     needs: build_release
-    if: needs.build_release.outputs.release.releases_created
-    uses: ./.github/workflows/publish.yml
-    with:
-      tag_name: ${{ needs.build_release.outputs.release.tag_name }}
-    secrets: inherit
+    # if: needs.build_release.outputs.release.releases_created
+    # uses: ./.github/workflows/publish.yml
+    # with:
+    #   tag_name: ${{ needs.build_release.outputs.release.tag_name }}
+    # secrets: inherit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump steps context
+        env:
+          STEPS_CONTEXT: ${{ toJson(steps) }}
+        run: echo "$STEPS_CONTEXT"
+      - name: Dump needs context
+        env:
+          NEEDS_CONTEXT: ${{ toJson(needs) }}
+        run: echo "$NEEDS_CONTEXT"
