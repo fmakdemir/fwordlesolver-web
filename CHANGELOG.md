@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.16](https://github.com/fmakdemir/fwordlesolver-web/compare/v0.2.15...v0.2.16) (2025-02-13)
+
+
+### Bug Fixes
+
+* dispatch parameters ([41c2851](https://github.com/fmakdemir/fwordlesolver-web/commit/41c285132a601d7538a59d7ea904148a526910b3))
+
 ## [0.2.15](https://github.com/fmakdemir/fwordlesolver-web/compare/v0.2.14...v0.2.15) (2025-02-13)
 
 
