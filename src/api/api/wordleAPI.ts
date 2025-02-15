@@ -5,30 +5,22 @@
  * This is an API for Wordle
  * OpenAPI spec version: 1.0.0
  */
-import { useMutation } from "@tanstack/vue-query";
+import { useMutation, useQuery } from "@tanstack/vue-query";
 import type {
+  DataTag,
   MutationFunction,
+  QueryFunction,
+  QueryKey,
   UseMutationOptions,
   UseMutationReturnType,
+  UseQueryOptions,
+  UseQueryReturnType,
 } from "@tanstack/vue-query";
 import * as axios from "axios";
 import type { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { unref } from "vue";
 import type { MaybeRef } from "vue";
-import { faker } from "@faker-js/faker";
-import { HttpResponse, delay, http } from "msw";
-export interface WordleSolveResponse {
-  suggestions: string[];
-  alternatives: string[];
-  remaining: number;
-  used_letters: string[];
-}
-
-export interface WordleSolveRequest {
-  words: string[];
-  places: string[];
-  size: number;
-}
+import type { WordleSolveRequest, WordleSolveResponse } from "./wordleAPI.schemas";
 
 /**
  * @summary Solve Wordle
@@ -109,42 +101,68 @@ export const useFwordlesolverApiApiSolveWordle = <
   return useMutation(mutationOptions);
 };
 
-export const getFwordlesolverApiApiSolveWordleResponseMock = (
-  overrideResponse: Partial<WordleSolveResponse> = {},
-): WordleSolveResponse => ({
-  suggestions: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(
-    () => faker.string.alpha(20),
-  ),
-  alternatives: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(
-    () => faker.string.alpha(20),
-  ),
-  remaining: faker.number.int({ min: undefined, max: undefined }),
-  used_letters: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(
-    () => faker.string.alpha(20),
-  ),
-  ...overrideResponse,
-});
-
-export const getFwordlesolverApiApiSolveWordleMockHandler = (
-  overrideResponse?:
-    | WordleSolveResponse
-    | ((
-        info: Parameters<Parameters<typeof http.post>[1]>[0],
-      ) => Promise<WordleSolveResponse> | WordleSolveResponse),
-) => {
-  return http.post("*/wordle-solver/api/wordle", async (info) => {
-    await delay(1000);
-
-    return new HttpResponse(
-      JSON.stringify(
-        overrideResponse !== undefined
-          ? typeof overrideResponse === "function"
-            ? await overrideResponse(info)
-            : overrideResponse
-          : getFwordlesolverApiApiSolveWordleResponseMock(),
-      ),
-      { status: 200, headers: { "Content-Type": "application/json" } },
-    );
-  });
+/**
+ * @summary Ping
+ */
+export const fwordlesolverApiApiPing = (
+  options?: AxiosRequestConfig,
+): Promise<AxiosResponse<void>> => {
+  return axios.default.get(`/wordle-solver/api/ping`, options);
 };
-export const getWordleAPIMock = () => [getFwordlesolverApiApiSolveWordleMockHandler()];
+
+export const getFwordlesolverApiApiPingQueryKey = () => {
+  return ["wordle-solver", "api", "ping"] as const;
+};
+
+export const getFwordlesolverApiApiPingQueryOptions = <
+  TData = Awaited<ReturnType<typeof fwordlesolverApiApiPing>>,
+  TError = AxiosError<unknown>,
+>(options?: {
+  query?: Partial<
+    UseQueryOptions<Awaited<ReturnType<typeof fwordlesolverApiApiPing>>, TError, TData>
+  >;
+  axios?: AxiosRequestConfig;
+}) => {
+  const { query: queryOptions, axios: axiosOptions } = options ?? {};
+
+  const queryKey = getFwordlesolverApiApiPingQueryKey();
+
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof fwordlesolverApiApiPing>>> = ({
+    signal,
+  }) => fwordlesolverApiApiPing({ signal, ...axiosOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof fwordlesolverApiApiPing>>,
+    TError,
+    TData
+  >;
+};
+
+export type FwordlesolverApiApiPingQueryResult = NonNullable<
+  Awaited<ReturnType<typeof fwordlesolverApiApiPing>>
+>;
+export type FwordlesolverApiApiPingQueryError = AxiosError<unknown>;
+
+/**
+ * @summary Ping
+ */
+
+export function useFwordlesolverApiApiPing<
+  TData = Awaited<ReturnType<typeof fwordlesolverApiApiPing>>,
+  TError = AxiosError<unknown>,
+>(options?: {
+  query?: Partial<
+    UseQueryOptions<Awaited<ReturnType<typeof fwordlesolverApiApiPing>>, TError, TData>
+  >;
+  axios?: AxiosRequestConfig;
+}): UseQueryReturnType<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+  const queryOptions = getFwordlesolverApiApiPingQueryOptions(options);
+
+  const query = useQuery(queryOptions) as UseQueryReturnType<TData, TError> & {
+    queryKey: DataTag<QueryKey, TData, TError>;
+  };
+
+  query.queryKey = unref(queryOptions).queryKey as DataTag<QueryKey, TData, TError>;
+
+  return query;
+}

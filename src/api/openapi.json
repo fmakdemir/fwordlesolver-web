@@ -30,6 +30,14 @@
           "required": true
         }
       }
+    },
+    "/wordle-solver/api/ping": {
+      "get": {
+        "operationId": "fwordlesolver_api_api_ping",
+        "summary": "Ping",
+        "parameters": [],
+        "responses": { "200": { "description": "OK" } }
+      }
     }
   },
   "components": {
@@ -50,8 +58,7 @@
           "used_letters": {
             "items": { "type": "string" },
             "title": "Used Letters",
-            "type": "array",
-            "uniqueItems": true
+            "type": "array"
           }
         },
         "required": [

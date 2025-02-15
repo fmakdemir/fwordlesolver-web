@@ -6,6 +6,7 @@ export default defineConfig({
       // mode: "split",
       workspace: "src/api",
       target: "api",
+      mode: "split",
       client: "vue-query",
       mock: true,
       prettier: true,

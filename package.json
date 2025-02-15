@@ -15,7 +15,10 @@
     "lint:eslint": "eslint . --fix",
     "lint": "run-s lint:*",
     "test": "echo no tests",
-    "get-openapi": "curl https://games.codeuni.net/wordle-solver/api/openapi.json -o src/api/openapi.json",
+    "api:update": "curl https://games.codeuni.net/wordle-solver/api/openapi.json -s -o src/api/openapi.json && yarn format && yarn orval",
+    "docker:build": "docker build . -t fmakdemir/fwordlesolver-web:latest",
+    "docker:run": "docker run --rm -p 8000:80 --name web fmakdemir/fwordlesolver-web:latest",
+    "docker:kill": "sudo kill $(docker inspect web | jq '.[].State.Pid')",
     "format": "prettier --write src/"
   },
   "dependencies": {
