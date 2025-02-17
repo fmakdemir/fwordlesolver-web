@@ -64,18 +64,24 @@ const onSuggest = (word: string) => {
 <template>
   <main class="touch-manipulation">
     <div class="flex flex-wrap">
-      <Select
-        v-model="size"
-        :options="[2, 3, 4, 5, 6, 7, 8, 9, 10]"
-        placeholder="Select length"
-        checkmark
-        label="Word length"
-        :highlightOnSelect="false"
-        class="w-full md:w-56"
-      />
+      <div class="mx-4">
+        <label for="f-select" class="mr-4 text-2xl">Word Size:</label>
+        <Select
+          id="f-select"
+          v-model="size"
+          size="small"
+          :options="[2, 3, 4, 5, 6, 7, 8, 9, 10]"
+          placeholder="Select length"
+          checkmark
+          label="Word length"
+          :highlightOnSelect="false"
+          class="h-8 w-14"
+        />
+      </div>
 
-      <FSelectSize v-model="size" />
-      <button class="btn" @click="resetGame">Reset Game</button>
+      <Button @click="resetGame" variant="outlined" severity="danger" class="mx-4"
+        >Reset Game</Button
+      >
     </div>
     <div class="flex flex-wrap items-center justify-center">
       <div class="mx-10 mb-4 flex flex-col pt-16">
@@ -97,7 +103,7 @@ const onSuggest = (word: string) => {
             :size="size"
             v-model:state="currState"
           />
-          <Button variant="text" icon="pi pi-trash" disabled />
+          <Button variant="text" icon="pi pi-trash" disabled class="invisible" />
         </div>
         <Button
           label="Submit"
