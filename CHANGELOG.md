@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/fmakdemir/fwordlesolver-web/compare/v0.3.0...v0.3.1) (2025-02-17)
+
+
+### Bug Fixes
+
+* selectors ([6a21e1d](https://github.com/fmakdemir/fwordlesolver-web/commit/6a21e1d6ff1dbbe7f4ccbb8307d073eebf8aa102))
+
 ## [0.3.0](https://github.com/fmakdemir/fwordlesolver-web/compare/v0.2.19...v0.3.0) (2025-02-17)
 
 
