@@ -8,7 +8,7 @@
   "paths": {
     "/wordle-solver/api/wordle": {
       "post": {
-        "operationId": "fwordlesolver_api_api_solve_wordle",
+        "operationId": "solve_wordle",
         "summary": "Solve Wordle",
         "parameters": [],
         "responses": {
@@ -33,7 +33,7 @@
     },
     "/wordle-solver/api/ping": {
       "get": {
-        "operationId": "fwordlesolver_api_api_ping",
+        "operationId": "ping",
         "summary": "Ping",
         "parameters": [],
         "responses": { "200": { "description": "OK" } }

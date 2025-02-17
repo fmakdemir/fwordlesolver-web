@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "primeicons/primeicons.css";
 
 #app {
   display: flex;
@@ -18,5 +19,5 @@
 }
 
 @utility btn-kb {
-  @apply btn mx-1 border-gray-300 bg-white text-gray-700 hover:bg-red-500;
+  @apply btn mx-1 border-gray-300 bg-white text-gray-700 hover:bg-gray-100;
 }

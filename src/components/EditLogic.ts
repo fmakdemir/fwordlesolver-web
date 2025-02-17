@@ -24,16 +24,25 @@ export const useEditLogic = (size: Ref<number, number>) => {
     }
   };
 
-  const clearGame = () => {
+  const resetGame = () => {
     currWord.value = "";
     currState.value = getEmptyArray(size.value);
     words.value = [];
     states.value = [];
   };
 
+  const removeWord = (ind: number) => {
+    if (ind < -1 || ind >= words.value.length) {
+      console.error("Invalid deleteWord index: " + ind);
+      return;
+    }
+    words.value.splice(ind, 1);
+    states.value.splice(ind, 1);
+  };
+
   watch(
     () => size,
-    () => clearGame(),
+    () => resetGame(),
   );
-  return { words, states, currWord, currState, clearGame, handleKey };
+  return { words, states, currWord, currState, resetGame, removeWord, handleKey };
 };

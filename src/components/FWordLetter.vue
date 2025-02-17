@@ -1,3 +1,9 @@
+<template>
+  <button :class="['letter-box', colorClass]" type="button" @click="onClick">
+    {{ letter }}
+  </button>
+</template>
+
 <script setup lang="ts">
 import { STATES } from "@/common/constants";
 import { computed, watch } from "vue";
@@ -24,12 +30,6 @@ const onClick = () => {
   state.value = letter === "_" ? 0 : (state.value + 1) % 3;
 };
 </script>
-
-<template>
-  <div :class="['letter-box', colorClass]" @click="onClick">
-    {{ letter }}
-  </div>
-</template>
 
 <style scoped>
 .letter-box {

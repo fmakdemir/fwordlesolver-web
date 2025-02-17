@@ -9,23 +9,17 @@ import { faker } from "@faker-js/faker";
 import { HttpResponse, delay, http } from "msw";
 import type { WordleSolveResponse } from "./wordleAPI.schemas";
 
-export const getFwordlesolverApiApiSolveWordleResponseMock = (
+export const getSolveWordleResponseMock = (
   overrideResponse: Partial<WordleSolveResponse> = {},
 ): WordleSolveResponse => ({
-  suggestions: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(
-    () => faker.string.alpha(20),
-  ),
-  alternatives: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(
-    () => faker.string.alpha(20),
-  ),
-  remaining: faker.number.int({ min: undefined, max: undefined }),
-  used_letters: Array.from({ length: faker.number.int({ min: 1, max: 10 }) }, (_, i) => i + 1).map(
-    () => faker.string.alpha(20),
-  ),
+  suggestions: (() => Array.from({ length: 5 }).map(() => faker.word.sample({ length: 5 })))(),
+  alternatives: (() => Array.from({ length: 5 }).map(() => faker.word.sample({ length: 5 })))(),
+  remaining: (() => faker.number.int({ min: 1, max: 20 }))(),
+  used_letters: (() => [...new Set(faker.string.alpha({ casing: "lower" }))])(),
   ...overrideResponse,
 });
 
-export const getFwordlesolverApiApiSolveWordleMockHandler = (
+export const getSolveWordleMockHandler = (
   overrideResponse?:
     | WordleSolveResponse
     | ((
@@ -41,14 +35,14 @@ export const getFwordlesolverApiApiSolveWordleMockHandler = (
           ? typeof overrideResponse === "function"
             ? await overrideResponse(info)
             : overrideResponse
-          : getFwordlesolverApiApiSolveWordleResponseMock(),
+          : getSolveWordleResponseMock(),
       ),
       { status: 200, headers: { "Content-Type": "application/json" } },
     );
   });
 };
 
-export const getFwordlesolverApiApiPingMockHandler = (
+export const getPingMockHandler = (
   overrideResponse?:
     | void
     | ((info: Parameters<Parameters<typeof http.get>[1]>[0]) => Promise<void> | void),
@@ -61,7 +55,4 @@ export const getFwordlesolverApiApiPingMockHandler = (
     return new HttpResponse(null, { status: 200 });
   });
 };
-export const getWordleAPIMock = () => [
-  getFwordlesolverApiApiSolveWordleMockHandler(),
-  getFwordlesolverApiApiPingMockHandler(),
-];
+export const getWordleAPIMock = () => [getSolveWordleMockHandler(), getPingMockHandler()];

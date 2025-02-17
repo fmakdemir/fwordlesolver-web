@@ -5,20 +5,33 @@
         <button @click="toggle" class="flex cursor-pointer px-2 py-1">
           Word Suggestions ({{ remaining }})
           {{ hidden ? "Show" : "Hide" }}
-          <div :class="hidden ? 'rotate-180' : 'rotate-0'" class="transition-transform">🔽</div>
+          <div
+            :class="hidden ? 'rotate-180' : 'rotate-0'"
+            class="animate-pulse transition-transform"
+          >
+            🔽
+          </div>
         </button>
       </h2>
     </div>
     <div class="flex" :class="{ hidden }">
-      <div class="flex flex-col">
-        <button v-for="(w, i) in suggestions" :key="i" @click="suggest(w)" class="btn-sugg">
-          {{ w }}
-        </button>
+      <div class="flex flex-col py-1">
+        <Button
+          v-for="(word, ind) in suggestions"
+          :key="ind"
+          :label="word"
+          class="m-1 uppercase"
+          @click="suggest(word)"
+        />
       </div>
-      <div class="flex flex-col">
-        <button v-for="(w, i) in alternatives" :key="i" @click="suggest(w)" class="btn-sugg">
-          {{ w }}
-        </button>
+      <div class="flex flex-col py-1">
+        <Button
+          v-for="(word, ind) in alternatives"
+          :key="ind"
+          :label="word"
+          class="m-1 uppercase"
+          @click="suggest(word)"
+        />
       </div>
     </div>
   </div>
@@ -26,6 +39,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import Button from "primevue/button";
 
 defineProps<{ suggestions: string[]; alternatives: string[]; remaining: number }>();
 

@@ -25,7 +25,7 @@ import type { WordleSolveRequest, WordleSolveResponse } from "./wordleAPI.schema
 /**
  * @summary Solve Wordle
  */
-export const fwordlesolverApiApiSolveWordle = (
+export const solveWordle = (
   wordleSolveRequest: MaybeRef<WordleSolveRequest>,
   options?: AxiosRequestConfig,
 ): Promise<AxiosResponse<WordleSolveResponse>> => {
@@ -34,24 +34,24 @@ export const fwordlesolverApiApiSolveWordle = (
   return axios.default.post(`/wordle-solver/api/wordle`, wordleSolveRequest, options);
 };
 
-export const getFwordlesolverApiApiSolveWordleMutationOptions = <
+export const getSolveWordleMutationOptions = <
   TError = AxiosError<unknown>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof fwordlesolverApiApiSolveWordle>>,
+    Awaited<ReturnType<typeof solveWordle>>,
     TError,
     { data: WordleSolveRequest },
     TContext
   >;
   axios?: AxiosRequestConfig;
 }): UseMutationOptions<
-  Awaited<ReturnType<typeof fwordlesolverApiApiSolveWordle>>,
+  Awaited<ReturnType<typeof solveWordle>>,
   TError,
   { data: WordleSolveRequest },
   TContext
 > => {
-  const mutationKey = ["fwordlesolverApiApiSolveWordle"];
+  const mutationKey = ["solveWordle"];
   const { mutation: mutationOptions, axios: axiosOptions } = options
     ? options.mutation && "mutationKey" in options.mutation && options.mutation.mutationKey
       ? options
@@ -59,44 +59,39 @@ export const getFwordlesolverApiApiSolveWordleMutationOptions = <
     : { mutation: { mutationKey }, axios: undefined };
 
   const mutationFn: MutationFunction<
-    Awaited<ReturnType<typeof fwordlesolverApiApiSolveWordle>>,
+    Awaited<ReturnType<typeof solveWordle>>,
     { data: WordleSolveRequest }
   > = (props) => {
     const { data } = props ?? {};
 
-    return fwordlesolverApiApiSolveWordle(data, axiosOptions);
+    return solveWordle(data, axiosOptions);
   };
 
   return { mutationFn, ...mutationOptions };
 };
 
-export type FwordlesolverApiApiSolveWordleMutationResult = NonNullable<
-  Awaited<ReturnType<typeof fwordlesolverApiApiSolveWordle>>
->;
-export type FwordlesolverApiApiSolveWordleMutationBody = WordleSolveRequest;
-export type FwordlesolverApiApiSolveWordleMutationError = AxiosError<unknown>;
+export type SolveWordleMutationResult = NonNullable<Awaited<ReturnType<typeof solveWordle>>>;
+export type SolveWordleMutationBody = WordleSolveRequest;
+export type SolveWordleMutationError = AxiosError<unknown>;
 
 /**
  * @summary Solve Wordle
  */
-export const useFwordlesolverApiApiSolveWordle = <
-  TError = AxiosError<unknown>,
-  TContext = unknown,
->(options?: {
+export const useSolveWordle = <TError = AxiosError<unknown>, TContext = unknown>(options?: {
   mutation?: UseMutationOptions<
-    Awaited<ReturnType<typeof fwordlesolverApiApiSolveWordle>>,
+    Awaited<ReturnType<typeof solveWordle>>,
     TError,
     { data: WordleSolveRequest },
     TContext
   >;
   axios?: AxiosRequestConfig;
 }): UseMutationReturnType<
-  Awaited<ReturnType<typeof fwordlesolverApiApiSolveWordle>>,
+  Awaited<ReturnType<typeof solveWordle>>,
   TError,
   { data: WordleSolveRequest },
   TContext
 > => {
-  const mutationOptions = getFwordlesolverApiApiSolveWordleMutationOptions(options);
+  const mutationOptions = getSolveWordleMutationOptions(options);
 
   return useMutation(mutationOptions);
 };
@@ -104,59 +99,50 @@ export const useFwordlesolverApiApiSolveWordle = <
 /**
  * @summary Ping
  */
-export const fwordlesolverApiApiPing = (
-  options?: AxiosRequestConfig,
-): Promise<AxiosResponse<void>> => {
+export const ping = (options?: AxiosRequestConfig): Promise<AxiosResponse<void>> => {
   return axios.default.get(`/wordle-solver/api/ping`, options);
 };
 
-export const getFwordlesolverApiApiPingQueryKey = () => {
+export const getPingQueryKey = () => {
   return ["wordle-solver", "api", "ping"] as const;
 };
 
-export const getFwordlesolverApiApiPingQueryOptions = <
-  TData = Awaited<ReturnType<typeof fwordlesolverApiApiPing>>,
+export const getPingQueryOptions = <
+  TData = Awaited<ReturnType<typeof ping>>,
   TError = AxiosError<unknown>,
 >(options?: {
-  query?: Partial<
-    UseQueryOptions<Awaited<ReturnType<typeof fwordlesolverApiApiPing>>, TError, TData>
-  >;
+  query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof ping>>, TError, TData>>;
   axios?: AxiosRequestConfig;
 }) => {
   const { query: queryOptions, axios: axiosOptions } = options ?? {};
 
-  const queryKey = getFwordlesolverApiApiPingQueryKey();
+  const queryKey = getPingQueryKey();
 
-  const queryFn: QueryFunction<Awaited<ReturnType<typeof fwordlesolverApiApiPing>>> = ({
-    signal,
-  }) => fwordlesolverApiApiPing({ signal, ...axiosOptions });
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof ping>>> = ({ signal }) =>
+    ping({ signal, ...axiosOptions });
 
   return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
-    Awaited<ReturnType<typeof fwordlesolverApiApiPing>>,
+    Awaited<ReturnType<typeof ping>>,
     TError,
     TData
   >;
 };
 
-export type FwordlesolverApiApiPingQueryResult = NonNullable<
-  Awaited<ReturnType<typeof fwordlesolverApiApiPing>>
->;
-export type FwordlesolverApiApiPingQueryError = AxiosError<unknown>;
+export type PingQueryResult = NonNullable<Awaited<ReturnType<typeof ping>>>;
+export type PingQueryError = AxiosError<unknown>;
 
 /**
  * @summary Ping
  */
 
-export function useFwordlesolverApiApiPing<
-  TData = Awaited<ReturnType<typeof fwordlesolverApiApiPing>>,
+export function usePing<
+  TData = Awaited<ReturnType<typeof ping>>,
   TError = AxiosError<unknown>,
 >(options?: {
-  query?: Partial<
-    UseQueryOptions<Awaited<ReturnType<typeof fwordlesolverApiApiPing>>, TError, TData>
-  >;
+  query?: Partial<UseQueryOptions<Awaited<ReturnType<typeof ping>>, TError, TData>>;
   axios?: AxiosRequestConfig;
 }): UseQueryReturnType<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-  const queryOptions = getFwordlesolverApiApiPingQueryOptions(options);
+  const queryOptions = getPingQueryOptions(options);
 
   const query = useQuery(queryOptions) as UseQueryReturnType<TData, TError> & {
     queryKey: DataTag<QueryKey, TData, TError>;
