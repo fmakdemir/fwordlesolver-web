@@ -36,38 +36,4 @@ const onClick = () => {
 };
 </script>
 
-<style scoped>
-.letter-box {
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  user-select: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 2px;
-  font-size: 24px;
-  font-weight: bold;
-  border: 1px solid #000;
-}
-
-.green-box {
-  background-color: green;
-  color: white;
-}
-
-.blue-box {
-  background-color: rgb(33, 167, 230);
-  color: white;
-}
-
-.yellow-box {
-  background-color: rgb(252, 226, 80);
-  color: black;
-}
-
-.gray-box {
-  background-color: gray;
-  color: white;
-}
-</style>
+<style scoped></style>

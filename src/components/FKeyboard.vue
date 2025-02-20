@@ -9,9 +9,9 @@
         @click="emit('key-press', key)"
         :label="key"
         variant="outlined"
-        :severity="severityMap[key]"
+        :severity="severityMap[key].severity"
         class="m-0.5 md:m-1 lg:m-2"
-        :class="{ 'bg-gray-300': usedLetters.includes(key) }"
+        :class="{ '!bg-gray-300': severityMap[key].used }"
       />
     </div>
   </div>
@@ -31,16 +31,16 @@ const rows = [
 ];
 
 const severityMap = computed(() => {
-  const m: Record<string, string> = {};
+  const m: Record<string, { severity: string; used: boolean }> = {};
   rows.forEach((r) =>
     r.forEach((key) => {
+      let severity = "secondary";
       if (key === "Enter") {
-        m[key] = "primary";
+        severity = "primary";
       } else if (key === "Delete") {
-        m[key] = "danger";
-      } else {
-        m[key] = "secondary";
+        severity = "danger";
       }
+      m[key] = { severity, used: usedLetters.includes(key) };
     }),
   );
   return m;

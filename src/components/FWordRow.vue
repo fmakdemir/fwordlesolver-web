@@ -1,5 +1,5 @@
 <template>
-  <div class="word-row">
+  <div class="flex">
     <FWordLetter
       v-for="(letter, i) in filledWord"
       :key="i"
@@ -36,21 +36,4 @@ const onChange = (index: number, letterState?: number) => {
 };
 </script>
 
-<style scoped>
-.word-row {
-  display: flex;
-}
-.letter-box {
-  @apply uppercase;
-  font-family: monospace;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 2px;
-  font-size: 24px;
-  font-weight: bold;
-  border: 1px solid #000;
-}
-</style>
+<style scoped></style>
