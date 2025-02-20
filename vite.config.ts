@@ -8,7 +8,7 @@ import { defineConfig } from "vite";
 import vueDevTools from "vite-plugin-vue-devtools";
 
 // https://vite.dev/config/
-export default defineConfig(({ command, mode, isSsrBuild, isPreview }) => ({
+export default defineConfig({
   base: "/wordle-solver",
   plugins: [
     vue(),
@@ -30,6 +30,6 @@ export default defineConfig(({ command, mode, isSsrBuild, isPreview }) => ({
     },
   },
   esbuild: {
-    drop: mode === "production" ? ["console", "debugger"] : [],
+    drop: ["console", "debugger"],
   },
-}));
+});

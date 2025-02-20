@@ -8,10 +8,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    Button: typeof import('primevue/button')['default']
     FKeyboard: typeof import('./src/components/FKeyboard.vue')['default']
-    FSelectSize: typeof import('./src/components/FSelectSize.vue')['default']
-    FSubmitButton: typeof import('./src/components/FSubmitButton.vue')['default']
     FSuggestions: typeof import('./src/components/FSuggestions.vue')['default']
     FWordLetter: typeof import('./src/components/FWordLetter.vue')['default']
     FWordRow: typeof import('./src/components/FWordRow.vue')['default']
