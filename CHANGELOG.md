@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.4.0](https://github.com/fmakdemir/fwordlesolver-web/compare/v0.3.1...v0.4.0) (2025-02-20)
+
+
+### Features
+
+* multiple fixes and migrated to PrimeVue ([b0c6e12](https://github.com/fmakdemir/fwordlesolver-web/commit/b0c6e12706fedef9e8676341beb50f488864d4d3))
+
+
+### Bug Fixes
+
+* removed unused codes ([9ae249e](https://github.com/fmakdemir/fwordlesolver-web/commit/9ae249eba73ed1dd1723eeb1bf74f3f3d2e6835f))
+
 ## [0.3.1](https://github.com/fmakdemir/fwordlesolver-web/compare/v0.3.0...v0.3.1) (2025-02-17)
 
 
