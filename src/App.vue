@@ -1,12 +1,29 @@
-<script setup lang="ts">
-import { RouterView } from "vue-router";
-</script>
-
 <template>
-  <h1>Wordle Solver</h1>
+  <h1>
+    Wordle Solver<PButton
+      variant="text"
+      severity="secondary"
+      rounded
+      :icon="darkMode ? 'pi pi-moon' : 'pi pi-sun'"
+      @click="toggleDarkMode()"
+    />
+  </h1>
 
   <RouterView />
 </template>
+
+<script setup lang="ts">
+import { ref } from "vue";
+import { RouterView } from "vue-router";
+import { DARK_MODE_CLASS } from "./common/constants";
+
+const darkMode = ref(false);
+
+const toggleDarkMode = () => {
+  document.documentElement.classList.toggle(DARK_MODE_CLASS);
+  darkMode.value = document.documentElement.classList.contains(DARK_MODE_CLASS);
+};
+</script>
 
 <style scoped>
 h1 {

@@ -27,7 +27,7 @@ const [state] = defineModel<number[]>("state");
 const filledWord = computed(() => (word + "_".repeat(size)).substring(0, size));
 
 const onChange = (index: number, letterState?: number) => {
-  if (disabled || !letterState) {
+  if (disabled || letterState === undefined) {
     return;
   }
   const newState = state.value ? [...state.value] : getEmptyArray(size);

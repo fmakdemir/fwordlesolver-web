@@ -1,19 +1,11 @@
 <script setup lang="ts">
-import {
-  getSolveWordleMutationOptions,
-  solveWordle,
-  useSolveWordle,
-  type WordleSolveResponse,
-} from "@/api";
+import { useSolveWordle, type WordleSolveRequest, type WordleSolveResponse } from "@/api";
 import { getEmptyArray } from "@/common/arrays";
 import { STATES } from "@/common/constants";
 import { useEditLogic } from "@/components/EditLogic";
 import FKeyboard from "@/components/FKeyboard.vue";
-import FSelectSize from "@/components/FSelectSize.vue";
 import FSuggestions from "@/components/FSuggestions.vue";
 import FWordRow from "@/components/FWordRow.vue";
-import Button from "primevue/button";
-import Select from "primevue/select";
 import { computed, ref, watch, watchEffect } from "vue";
 
 const size = ref(5);
@@ -23,37 +15,47 @@ const resp = ref<WordleSolveResponse>({
   remaining: 100,
   used_letters: [],
 });
-const sizeSelect = ref<{ label: string; value: number } | null>();
 
 const { words, states, currWord, currState, resetGame, removeWord, handleKey } = useEditLogic(size);
 
 const gameOver = computed(() => resp.value.remaining <= 1);
 
-const fetchSuggestions = async () => {
-  const places = states.value.map((s, si) =>
+const request = computed<WordleSolveRequest>(() => {
+  const places = states.value.map((s) =>
     getEmptyArray(size.value)
-      .map((_, vi) => {
-        const v = s[vi] ?? 0;
-        console.log(s, si, v, vi);
-        return STATES[v].letter;
-      })
+      .map((_, vi) => STATES[s[vi] ?? 0].letter)
       .join(""),
   );
-  console.log("New value added", words.value, places);
-  const results = await solveWordle({
+  const _request = {
     words: words.value,
     places,
     size: size.value,
-  });
-  console.log("New state", words.value, places, results);
-  resp.value = results.data;
-};
+  };
+  console.log("Request updated", _request);
+  return _request;
+});
 
-watch(() => words.value.length, fetchSuggestions);
+const solveWordleMutation = useSolveWordle();
+solveWordleMutation.mutate({ data: request.value });
 
 watch(() => size.value, resetGame);
 
-watchEffect(() => fetchSuggestions());
+watch(
+  () => solveWordleMutation.data.value?.data,
+  () => {
+    const data = solveWordleMutation.data.value?.data;
+    if (data) {
+      resp.value = data;
+    }
+  },
+);
+
+watch(
+  () => request.value,
+  async () => {
+    solveWordleMutation.mutate({ data: request.value });
+  },
+);
 
 const onSuggest = (word: string) => {
   currWord.value = word.substring(0, size.value);
@@ -66,7 +68,7 @@ const onSuggest = (word: string) => {
     <div class="flex flex-wrap">
       <div class="mx-4">
         <label for="f-select" class="mr-4 text-2xl">Word Size:</label>
-        <Select
+        <PSelect
           id="f-select"
           v-model="size"
           size="small"
@@ -79,9 +81,13 @@ const onSuggest = (word: string) => {
         />
       </div>
 
-      <Button @click="resetGame" variant="outlined" severity="danger" class="mx-4"
-        >Reset Game</Button
-      >
+      <PButton
+        @click="resetGame"
+        variant="outlined"
+        severity="danger"
+        class="mx-4"
+        label="Reset Game"
+      />
     </div>
     <div class="flex flex-wrap items-center justify-center">
       <div class="mx-10 mb-4 flex flex-col pt-16">
@@ -93,7 +99,7 @@ const onSuggest = (word: string) => {
             disabled
             @update:state="states[i] = $event!!"
           />
-          <Button variant="outlined" icon="pi pi-trash" @click="removeWord(i)" />
+          <PButton variant="text" severity="danger" icon="pi pi-trash" @click="removeWord(i)" />
         </div>
         <div class="flex">
           <FWordRow
@@ -103,13 +109,14 @@ const onSuggest = (word: string) => {
             :size="size"
             v-model:state="currState"
           />
-          <Button variant="text" icon="pi pi-trash" disabled class="invisible" />
+          <PButton variant="text" icon="pi pi-trash" disabled class="invisible" />
         </div>
-        <Button
+        <PButton
           label="Submit"
-          :outlined="currWord.length !== size"
           severity="info"
+          :outlined="currWord.length !== size"
           :disabled="currWord.length !== size"
+          :loading="solveWordleMutation.isPending.value"
           @click="handleKey('Enter')"
         />
       </div>

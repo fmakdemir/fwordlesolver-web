@@ -16,7 +16,7 @@
     </div>
     <div class="flex" :class="{ hidden }">
       <div class="flex flex-col py-1">
-        <Button
+        <PButton
           v-for="(word, ind) in suggestions"
           :key="ind"
           :label="word"
@@ -25,7 +25,7 @@
         />
       </div>
       <div class="flex flex-col py-1">
-        <Button
+        <PButton
           v-for="(word, ind) in alternatives"
           :key="ind"
           :label="word"
@@ -39,7 +39,6 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import Button from "primevue/button";
 
 defineProps<{ suggestions: string[]; alternatives: string[]; remaining: number }>();
 
