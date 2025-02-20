@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/fmakdemir/fwordlesolver-web/compare/v0.4.0...v0.4.1) (2025-02-20)
+
+
+### Bug Fixes
+
+* temp fix to build error ([c8b3674](https://github.com/fmakdemir/fwordlesolver-web/commit/c8b3674674c8c9a2d06faa2b98a5058792a5fbb9))
+
 ## [0.4.0](https://github.com/fmakdemir/fwordlesolver-web/compare/v0.3.1...v0.4.0) (2025-02-20)
 
 
