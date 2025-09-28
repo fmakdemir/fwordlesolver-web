@@ -3,7 +3,7 @@
  * Do not edit manually.
  * Wordle API
  * This is an API for Wordle
- * OpenAPI spec version: 1.0.0
+ * OpenAPI spec version: 1.1.1
  */
 import { useMutation, useQuery } from "@tanstack/vue-query";
 import type {
@@ -41,7 +41,7 @@ export const solveWordle = (
 ): Promise<AxiosResponse<WordleSolveResponse>> => {
   wordleSolveRequest = unref(wordleSolveRequest);
 
-  return axios.default.post(`/wordle`, wordleSolveRequest, options);
+  return axios.default.post(`/wordle-solver/api/wordle`, wordleSolveRequest, options);
 };
 
 export const getSolveWordleMutationOptions = <
@@ -113,11 +113,11 @@ export const useSolveWordle = <TError = AxiosError<HTTPValidationError>, TContex
  * @summary Ping
  */
 export const ping = (options?: AxiosRequestConfig): Promise<AxiosResponse<PingResponse>> => {
-  return axios.default.get(`/ping`, options);
+  return axios.default.get(`/wordle-solver/api/ping`, options);
 };
 
 export const getPingQueryKey = () => {
-  return ["ping"] as const;
+  return ["wordle-solver", "api", "ping"] as const;
 };
 
 export const getPingQueryOptions = <
@@ -170,11 +170,11 @@ export function usePing<TData = Awaited<ReturnType<typeof ping>>, TError = Axios
  * @summary Health
  */
 export const health = (options?: AxiosRequestConfig): Promise<AxiosResponse<HealthResponse>> => {
-  return axios.default.get(`/health`, options);
+  return axios.default.get(`/wordle-solver/api/health`, options);
 };
 
 export const getHealthQueryKey = () => {
-  return ["health"] as const;
+  return ["wordle-solver", "api", "health"] as const;
 };
 
 export const getHealthQueryOptions = <

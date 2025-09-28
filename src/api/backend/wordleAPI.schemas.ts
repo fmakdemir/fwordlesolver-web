@@ -3,7 +3,7 @@
  * Do not edit manually.
  * Wordle API
  * This is an API for Wordle
- * OpenAPI spec version: 1.0.0
+ * OpenAPI spec version: 1.1.1
  */
 export interface HTTPValidationError {
   detail?: ValidationError[];

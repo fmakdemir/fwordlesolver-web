@@ -10,6 +10,7 @@ export default defineConfig({
       client: "vue-query",
       mock: true,
       prettier: true,
+      baseUrl: "/wordle-solver/api",
       override: {
         mock: {
           arrayMax: 5,
