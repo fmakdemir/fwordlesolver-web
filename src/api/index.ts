@@ -1,2 +1,2 @@
-export * from "./api/wordleAPI";
-export * from "./api/wordleAPI.schemas";
+export * from "./backend/wordleAPI";
+export * from "./backend/wordleAPI.schemas";

@@ -2,11 +2,10 @@ import { faker } from "@faker-js/faker";
 import { defineConfig } from "orval";
 
 export default defineConfig({
-  api: {
+  backend: {
     output: {
-      // mode: "split",
       workspace: "src/api",
-      target: "api",
+      target: "backend",
       mode: "split",
       client: "vue-query",
       mock: true,
@@ -25,7 +24,7 @@ export default defineConfig({
       },
     },
     input: {
-      target: "./src/api/openapi.json",
+      target: "./src/api/openapi_spec.json",
     },
   },
 });

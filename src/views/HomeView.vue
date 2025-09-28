@@ -74,7 +74,7 @@ import { useEditLogic } from "@/components/EditLogic";
 import FKeyboard from "@/components/FKeyboard.vue";
 import FSuggestions from "@/components/FSuggestions.vue";
 import FWordRow from "@/components/FWordRow.vue";
-import { computed, ref, watch, watchEffect } from "vue";
+import { computed, ref, watch } from "vue";
 
 const size = ref(5);
 const resp = ref<WordleSolveResponse>({
