@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.5.0](https://github.com/fmakdemir/fwordlesolver-web/compare/v0.4.1...v0.5.0) (2025-09-28)
+
+
+### Features
+
+* migrated to pnpm and new openapi config ([0f4b2bd](https://github.com/fmakdemir/fwordlesolver-web/commit/0f4b2bd2e0d2721a133f93badeefa6721b7fe8ba))
+
+
+### Bug Fixes
+
+* api path fix ([17639fa](https://github.com/fmakdemir/fwordlesolver-web/commit/17639fadbd0cbe8457b12ff69ee67ca8e8a66de5))
+
 ## [0.4.1](https://github.com/fmakdemir/fwordlesolver-web/compare/v0.4.0...v0.4.1) (2025-02-20)
 
 
