@@ -19,26 +19,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Use Node.js 20.x
+      - name: 📦 Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: 📦 Use Node.js 20
         uses: actions/setup-node@v4
         with:
-          node-version: "20.x"
-          cache: "yarn"
-
-      - name: 🎁 Enable Corepack
-        run: corepack enable
-
-      - name: 🧵 Setup yarn version
-        run: yarn set version stable
+          node-version: 20
+          cache: "pnpm"
 
       - name: 📜 Install dependencies
-        run: yarn
+        run: pnpm install
 
-      - name: 🧪 Run tests
-        run: yarn test
+      - name: ⚒️ Build
+        run: pnpm build
 
-      - name: 📦 Build files
-        run: yarn build
+      - name: 🧪 Test
+        run: pnpm test
 
       - name: 🐋 Docker meta
         id: meta
