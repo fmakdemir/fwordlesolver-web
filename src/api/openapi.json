@@ -2,93 +2,217 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Wordle API",
-    "version": "1.0.0",
-    "description": "This is an API for Wordle"
+    "description": "This is an API for Wordle",
+    "version": "1.2.1"
   },
   "paths": {
-    "/wordle-solver/api/wordle": {
+    "/wordle": {
       "post": {
-        "operationId": "solve_wordle",
         "summary": "Solve Wordle",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/WordleSolveResponse" }
-              }
-            }
-          }
-        },
+        "operationId": "solve_wordle",
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/WordleSolveRequest" }
+              "schema": {
+                "$ref": "#/components/schemas/WordleSolveRequest"
+              }
             }
           },
           "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WordleSolveResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
         }
       }
     },
-    "/wordle-solver/api/ping": {
+    "/ping": {
       "get": {
-        "operationId": "ping",
         "summary": "Ping",
-        "parameters": [],
-        "responses": { "200": { "description": "OK" } }
+        "operationId": "ping",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PingResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "summary": "Health",
+        "operationId": "health",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
   "components": {
     "schemas": {
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "HealthResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "response": {
+            "type": "string",
+            "title": "Response"
+          }
+        },
+        "type": "object",
+        "required": ["status", "response"],
+        "title": "HealthResponse"
+      },
+      "PingResponse": {
+        "properties": {
+          "response": {
+            "type": "string",
+            "title": "Response"
+          }
+        },
+        "type": "object",
+        "required": ["response"],
+        "title": "PingResponse"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": ["loc", "msg", "type"],
+        "title": "ValidationError"
+      },
+      "WordleSolveRequest": {
+        "properties": {
+          "words": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Words"
+          },
+          "places": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Places"
+          },
+          "size": {
+            "type": "integer",
+            "title": "Size"
+          }
+        },
+        "type": "object",
+        "required": ["words", "places", "size"],
+        "title": "WordleSolveRequest"
+      },
       "WordleSolveResponse": {
         "properties": {
           "suggestions": {
-            "items": { "type": "string" },
-            "title": "Suggestions",
-            "type": "array"
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Suggestions"
           },
           "alternatives": {
-            "items": { "type": "string" },
-            "title": "Alternatives",
-            "type": "array"
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Alternatives"
           },
-          "remaining": { "title": "Remaining", "type": "integer" },
+          "remaining": {
+            "type": "integer",
+            "title": "Remaining"
+          },
           "used_letters": {
-            "items": { "type": "string" },
-            "title": "Used Letters",
-            "type": "array"
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Used Letters"
           }
         },
+        "type": "object",
         "required": [
           "suggestions",
           "alternatives",
           "remaining",
           "used_letters"
         ],
-        "title": "WordleSolveResponse",
-        "type": "object"
-      },
-      "WordleSolveRequest": {
-        "properties": {
-          "words": {
-            "items": { "type": "string" },
-            "title": "Words",
-            "type": "array"
-          },
-          "places": {
-            "items": { "type": "string" },
-            "title": "Places",
-            "type": "array"
-          },
-          "size": { "title": "Size", "type": "integer" }
-        },
-        "required": ["words", "places", "size"],
-        "title": "WordleSolveRequest",
-        "type": "object"
+        "title": "WordleSolveResponse"
       }
     }
-  },
-  "servers": []
+  }
 }

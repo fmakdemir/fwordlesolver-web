@@ -25,7 +25,7 @@ export default defineConfig({
       },
     },
     input: {
-      target: "./src/api/openapi_spec.json",
+      target: "./src/api/openapi.json",
     },
   },
 });

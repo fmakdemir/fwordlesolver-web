@@ -15,7 +15,7 @@
     "lint:eslint": "eslint . --fix",
     "lint": "run-s lint:*",
     "test": "echo no tests",
-    "api:update": "curl https://games.codeuni.net/wordle-solver/api/openapi.json -s -o src/api/openapi_spec.json && pnpm format && pnpm orval",
+    "api:update": "curl https://games.codeuni.net/wordle-solver/api/openapi.json -s -o src/api/openapi.json && pnpm format && pnpm orval",
     "docker:build": "docker build . -t fmakdemir/fwordlesolver-web:latest",
     "docker:build:devo": "docker build . -t fmakdemir/fwordlesolver-web:devo",
     "docker:run": "docker run --rm -p 8000:80 --name web fmakdemir/fwordlesolver-web:latest",
