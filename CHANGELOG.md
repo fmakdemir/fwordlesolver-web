@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.1](https://github.com/fmakdemir/fwordlesolver-web/compare/v0.5.0...v0.5.1) (2025-09-29)
+
+
+### Bug Fixes
+
+* removed old api endpoint and fixed imports ([4730efe](https://github.com/fmakdemir/fwordlesolver-web/commit/4730efeefef86e47023b45c7dae48d99e083ed6e))
+
 ## [0.5.0](https://github.com/fmakdemir/fwordlesolver-web/compare/v0.4.1...v0.5.0) (2025-09-28)
 
 
