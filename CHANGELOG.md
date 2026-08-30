@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.3](https://github.com/fmakdemir/fwordlesolver-web/compare/v0.5.2...v0.5.3) (2026-08-30)
+
+
+### Documentation
+
+* add AGENTS.md guide ([7ae306c](https://github.com/fmakdemir/fwordlesolver-web/commit/7ae306c05ed4368e09f1afb997f442d95960271b))
+
 ## [0.5.2](https://github.com/fmakdemir/fwordlesolver-web/compare/v0.5.1...v0.5.2) (2025-09-29)
 
 
